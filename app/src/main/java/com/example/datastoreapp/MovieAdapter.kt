@@ -13,50 +13,50 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.ajalt.timberkt.d
 import com.squareup.picasso.Picasso
 
-class AnimalAdapter(
-    val animalSelected: (Animal) -> Unit,
-    val removeAnimal: (Animal) -> Unit,
+class MovieAdapter(
+    val movieSelected: (Movie) -> Unit,
+    val removeMovie: (Movie) -> Unit,
 ) :
-    ListAdapter<Animal, AnimalViewHolder>(AnimalDiffCallback) {
+    ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimalViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         d { "onCreateViewHolder()" }
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_animal, parent, false)
-        return AnimalViewHolder(
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+        return MovieViewHolder(
             view,
-            { animalSelected(getItem(it)) },
-            { removeAnimal(getItem(it)) }
+            { movieSelected(getItem(it)) },
+            { removeMovie(getItem(it)) }
         )
     }
 
-    override fun onBindViewHolder(holder: AnimalViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         d { "onBindViewHolder(): ${getItem(position).name}" }
         holder.bind(getItem(position))
     }
 
 }
 
-class AnimalViewHolder(
+class MovieViewHolder(
     view: View,
-    animalSelected: (Int) -> Unit,
-    removeAnimal: (Int) -> Unit
+    movieSelected: (Int) -> Unit,
+    removeMovie: (Int) -> Unit
 ) : RecyclerView.ViewHolder(view) {
     private val nameTextView: TextView = view.findViewById(R.id.animalName)
     private val geoRangeTextView: TextView = view.findViewById(R.id.geoRange)
-    private val animalImage: ImageView = view.findViewById(R.id.animalImage)
+    private val movieImage: ImageView = view.findViewById(R.id.animalImage)
     private val removeButton: ImageButton = view.findViewById(R.id.removeButton)
 
     init {
         view.setOnClickListener {
-            animalSelected(adapterPosition)
+            movieSelected(adapterPosition)
         }
         removeButton.setOnClickListener {
-            d { "Remove animal...." }
-            removeAnimal(adapterPosition)
+            d { "Remove movie...." }
+            removeMovie(adapterPosition)
         }
     }
 
-    fun bind(animal: Animal) {
+    fun bind(animal: Movie) {
 
         nameTextView.text = animal.name
         geoRangeTextView.text = animal.geoRange
@@ -66,17 +66,17 @@ class AnimalViewHolder(
             .resize(200, 200)
             .centerInside()
             .placeholder(R.drawable.camera_image)
-            .into(animalImage)
+            .into(movieImage)
     }
 }
 
-private object AnimalDiffCallback : DiffUtil.ItemCallback<Animal>() {
+private object MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
 
-    override fun areItemsTheSame(oldItem: Animal, newItem: Animal): Boolean {
+    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Animal, newItem: Animal): Boolean {
+    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem == newItem
     }
 

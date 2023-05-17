@@ -8,10 +8,10 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
-class Model(private val animalsDataStore: DataStore<AnimalStore>) {
+class Model(private val moviesDataStore: DataStore<MovieStore>) {
 
     companion object {
-        val ANIMALS = """
+        val MOVIES = """
 [
     {
         "name": "Little Blue Penguin",
@@ -339,13 +339,13 @@ class Model(private val animalsDataStore: DataStore<AnimalStore>) {
 
     private val coroutineScope = CoroutineScope(Job() + Dispatchers.Default)
 
-    private val _animals = MutableStateFlow<List<Animal>>(listOf())
-    val animals = _animals as StateFlow<List<Animal>>
+    private val _movies = MutableStateFlow<List<Movie>>(listOf())
+    val movies = _movies as StateFlow<List<Movie>>
 
     init {
         coroutineScope.launch {
-            //TODO 10 use the animalsDataSTore as will (with coroutines)
-            animalsDataStore.data
+            //TODO 10 use the moviesDataSTore as will (with coroutines)
+            moviesDataStore.data
                 .map { it.initialized }
                 .filter { !it }
                 .first {
@@ -356,11 +356,11 @@ class Model(private val animalsDataStore: DataStore<AnimalStore>) {
         }
 
         coroutineScope.launch {
-            animalsDataStore.data
-                .collect { animalStore ->
-                    d { "Animals count: ${animalStore.animalsCount}" }
-                    val animals = animalStore.animalsList.map { Animal.fromStoredAnimal(it) }
-                    _animals.emit(animals)
+            moviesDataStore.data
+                .collect { movieStore ->
+                    d { "Animals count: ${movieStore.moviesCount}" }
+                    val movies = movieStore.moviesList.map { Movie.fromStoredMovie(it) }
+                    _movies.emit(movies)
                 }
         }
 
@@ -371,20 +371,20 @@ class Model(private val animalsDataStore: DataStore<AnimalStore>) {
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
-        val type = Types.newParameterizedType(List::class.java, Animal::class.java)
-        val adapter = moshi.adapter<List<Animal>>(type)
+        val type = Types.newParameterizedType(List::class.java, Movie::class.java)
+        val adapter = moshi.adapter<List<Movie>>(type)
 
         // read the json
-        val animalsFromJson: List<Animal> = adapter.fromJson(Model.ANIMALS)!!
+        val moviesFromJson: List<Movie> = adapter.fromJson(Model.MOVIES)!!
 
         // create the storedAnimals list
-        val animalsToStore = animalsFromJson.map { it.asStoredAnimal() }
+        val moviesToStore = moviesFromJson.map { it.asStoredMovie() }
 
         // save data to data store
         coroutineScope.launch {
-            animalsDataStore.updateData { animalStore ->
-                animalStore.toBuilder()
-                    .addAllAnimals(animalsToStore)
+            moviesDataStore.updateData { movieStore ->
+                movieStore.toBuilder()
+                    .addAllMovies(moviesToStore)
                     .setInitialized(true)
                     .build()
             }
@@ -392,16 +392,16 @@ class Model(private val animalsDataStore: DataStore<AnimalStore>) {
 
     }
 
-    fun removeAnimal(animal: Animal) {
-        val toStoreAnimals = animals.value
-            .filter { it.id != animal.id }
-            .map { it.asStoredAnimal() }
+    fun removeMovie(movie: Movie) {
+        val toStoreAnimals = movies.value
+            .filter { it.id != movie.id }
+            .map { it.asStoredMovie() }
 
         coroutineScope.launch {
-            animalsDataStore.updateData { animalStore ->
-                animalStore.toBuilder()
-                    .clearAnimals()
-                    .addAllAnimals(toStoreAnimals)
+            moviesDataStore.updateData { movieStore ->
+                movieStore.toBuilder()
+                    .clearMovies()
+                    .addAllMovies(toStoreAnimals)
                     .build()
             }
         }

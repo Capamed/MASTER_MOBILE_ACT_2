@@ -2,7 +2,7 @@ package com.example.datastoreapp
 
 import com.squareup.moshi.Json
 
-data class Animal(
+data class Movie(
     val id: Int,
     val name: String,
     @Json(name = "latin_name")
@@ -14,8 +14,8 @@ data class Animal(
     val imageUrl: String
 ) {
     companion object {
-        fun fromStoredAnimal(storedAnimal: StoredAnimal): Animal {
-            return Animal(
+        fun fromStoredMovie(storedAnimal: StoredMovie): Movie {
+            return Movie(
                 storedAnimal.id,
                 storedAnimal.name,
                 storedAnimal.latinName,
@@ -27,8 +27,8 @@ data class Animal(
 
     }
 
-    fun asStoredAnimal(): StoredAnimal {
-        return StoredAnimal.newBuilder()
+    fun asStoredMovie(): StoredMovie{
+        return StoredMovie.newBuilder()
             .setId(id)
             .setName(name)
             .setLatinName(latinName)

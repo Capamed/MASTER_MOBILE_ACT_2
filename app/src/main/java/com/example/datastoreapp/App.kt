@@ -18,10 +18,10 @@ import timber.log.Timber.*
 @Suppress("unused")
 class App : Application() {
 
-    //TODO 7 create the single instance of the animalDataStore
-    private val animalsDataStore: DataStore<AnimalStore> by dataStore(
+    //TODO 7 create the single instance of the movieDataStore
+    private val moviesDataStore: DataStore<MovieStore> by dataStore(
         fileName = "animals.pb",
-        serializer = AnimalStoreSerializer
+        serializer = MovieStoreSerializer
     )
 
     override fun onCreate() {
@@ -40,8 +40,8 @@ class App : Application() {
             androidLogger(Level.ERROR)
             androidContext(this@App)
             modules(
-                //TODO 8 add the animalDataStore to the DI
-                module { single { animalsDataStore } },
+                //TODO 8 add the movieDataStore to the DI
+                module { single { moviesDataStore } },
                 mainModule,
                 mainActivityModule
             )
@@ -51,8 +51,8 @@ class App : Application() {
 }
 
 val mainModule = module {
-    //TODO 9 configure the singleton of the Model with the animalsDataStore
-    single { Model(animalsDataStore = get()) }
+    //TODO 9 configure the singleton of the Model with the moviesDataStore
+    single { Model(moviesDataStore = get()) }
 }
 
 val mainActivityModule = module {
