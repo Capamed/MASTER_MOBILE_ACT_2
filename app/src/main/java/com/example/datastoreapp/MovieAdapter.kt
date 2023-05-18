@@ -59,10 +59,10 @@ class MovieViewHolder(
     fun bind(animal: Movie) {
 
         nameTextView.text = animal.name
-        geoRangeTextView.text = animal.geoRange
+        geoRangeTextView.text = animal.plot
 
         Picasso.get()
-            .load(Uri.parse(animal.imageUrl))
+            .load(Uri.parse(animal.posterUrl))
             .resize(200, 200)
             .centerInside()
             .placeholder(R.drawable.camera_image)

@@ -13,8 +13,10 @@ message MovieStore {
 message StoredMovie{
   int32 id = 1;
   string name = 2;
-  string latinName = 3;
-  string geoRange = 4;
-  string diet = 5;
-  string imageUrl = 6;
+  string release = 3;
+  string playtime = 4;
+  string description = 5;
+  string plot = 6;
+  string posterUrl = 7;
+  string gifUrl = 8;
 }
