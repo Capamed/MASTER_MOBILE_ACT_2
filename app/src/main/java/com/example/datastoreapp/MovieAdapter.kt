@@ -42,7 +42,7 @@ class MovieViewHolder(
     removeMovie: (Int) -> Unit
 ) : RecyclerView.ViewHolder(view) {
     private val nameTextView: TextView = view.findViewById(R.id.animalName)
-    private val geoRangeTextView: TextView = view.findViewById(R.id.geoRange)
+    private val playTimeTextView: TextView = view.findViewById(R.id.playTime)
     private val movieImage: ImageView = view.findViewById(R.id.animalImage)
     private val removeButton: ImageButton = view.findViewById(R.id.removeButton)
 
@@ -56,14 +56,14 @@ class MovieViewHolder(
         }
     }
 
-    fun bind(animal: Movie) {
+    fun bind(movie: Movie) {
 
-        nameTextView.text = animal.name
-        geoRangeTextView.text = animal.plot
+        nameTextView.text = movie.name
+        playTimeTextView.text = movie.playtime
 
         Picasso.get()
-            .load(Uri.parse(animal.posterUrl))
-            .resize(200, 200)
+            .load(Uri.parse(movie.posterUrl))
+            .resize(1200, 1200)
             .centerInside()
             .placeholder(R.drawable.camera_image)
             .into(movieImage)

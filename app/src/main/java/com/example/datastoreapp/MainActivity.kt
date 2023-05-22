@@ -1,5 +1,6 @@
 package com.example.datastoreapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         movieAdapter = MovieAdapter(
             movieSelected = {
                 d { "Selected movie $it!!!" }
+                selectedMovie(it)
             },
             removeMovie = {
                 d { "Remove movie $it !!!" }
@@ -52,5 +54,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun removeMovie(movie: Movie) {
         viewModel.removeMovie(movie)
+    }
+
+    private fun selectedMovie(movie: Movie){
+        val intent = Intent(this, ShowDataActivity:: class.java);
+        intent.putExtra("tittleMovie",movie.name);
+        intent.putExtra("releaseMovie",movie.release);
+        intent.putExtra("playtimeMovie",movie.playtime);
+        intent.putExtra("plotMovie",movie.plot);
+        intent.putExtra("descriptionMovie",movie.description);
+        intent.putExtra("gifUrlMovie",movie.gifUrl);
+        intent.putExtra("posterUrlMovie",movie.posterUrl);
+        startActivity(intent);
     }
 }
