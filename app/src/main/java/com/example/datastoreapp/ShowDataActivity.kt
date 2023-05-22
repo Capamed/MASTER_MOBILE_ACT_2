@@ -1,7 +1,9 @@
 package com.example.datastoreapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
@@ -42,5 +44,21 @@ class ShowDataActivity : AppCompatActivity() {
 
         val imageView = findViewById<ImageView>(R.id.imageView)
         Picasso.get().load(posterUrlMovie).into(imageView)
+
+        //GET GIF
+        val gifUrlMovie = bundle?.getString("gifUrlMovie")
+
+        val myButton = findViewById<Button>(R.id.btn_see_gif)
+        myButton.setOnClickListener {
+            if (gifUrlMovie != null) {
+                sendGifToNewActivity(gifUrlMovie)
+            };
+        }
+    }
+
+    private fun sendGifToNewActivity(gifUrlMovie: String){
+        val intent = Intent(this, ShowGifMovie::class.java)
+        intent.putExtra("gifUrlMovie",gifUrlMovie);
+        startActivity(intent);
     }
 }
