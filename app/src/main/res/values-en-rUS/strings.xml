@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="strReleaseMovie">Release</string>
+    <string name="strPlotMovie">Plot</string>
+    <string name="strDescriptionMovie">Description</string>
+    <string name="strPlaytime">Playtime</string>
+    <string name="strSeeGif">See GIF</string>
+    <string name="strGratitude">Thanks for download our app</string>
+    <string name="strAuthors">Authors</string>
+</resources>
