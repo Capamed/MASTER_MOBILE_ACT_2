@@ -241,7 +241,7 @@
         android:id="@+id/btn_see_gif"
         android:layout_width="145dp"
         android:layout_height="32dp"
-        android:text="Ver GIF"
+        android:text="SEE GIF"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
