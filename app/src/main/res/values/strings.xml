@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Movies</string>
+    <string name="app_name">Peliculas</string>
+    <string name="strReleaseMovie">Lanzamiento</string>
+    <string name="strPlotMovie">Trama</string>
+    <string name="strDescriptionMovie">Descripción</string>
+    <string name="strPlaytime">Duración</string>
+    <string name="strSeeGif">Ver GIF</string>
+    <string name="strGratitude">Gracias por descargar nuestra aplicación</string>
+    <string name="strAuthors">Autores</string>
 </resources>
