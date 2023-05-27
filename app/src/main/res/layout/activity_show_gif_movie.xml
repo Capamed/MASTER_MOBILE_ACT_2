@@ -75,7 +75,7 @@
         android:id="@+id/textView5"
         android:layout_width="176dp"
         android:layout_height="24dp"
-        android:text="  * TITIN MARCO"
+        android:text="  * TINTIN MARCO"
         app:layout_constraintBottom_toTopOf="@+id/guideline12"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintHorizontal_bias="0.443"
